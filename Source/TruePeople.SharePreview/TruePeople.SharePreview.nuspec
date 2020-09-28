@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TruePeople.SharePreview</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>TruePeople</authors>
+    <owners>TruePeople</owners>
+    <projectUrl>https://www.truepeople.nl</projectUrl>
+    <iconUrl>https://www.truepeople.nl/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Share previews with people without a login!</description>
+    <copyright>Copyright 2020</copyright>
+    <tags>Preview Umbraco</tags>
+    <dependencies>
+      <dependency id="UmbracoCms.Core" version="[8.1.5, 8.7.0]" />
+      <dependency id="UmbracoCms.Web" version="[8.1.5, 8.7.0]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Debug\TruePeople.SharePreview.dll" target="lib\net461" />
+    <file src="App_Plugins\*.*" target="Content/App_Plugins/TPSharePreview/"/>
+    <file src="config\*.*" target="Content/config"/>
+  </files>
+</package>

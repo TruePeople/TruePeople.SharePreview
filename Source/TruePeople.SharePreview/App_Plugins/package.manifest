@@ -1,0 +1,10 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/TPSharePreview/js/sharepreview.service.js",
+    "~/App_Plugins/TPSharePreview/js/sharepreview-button.controller.js",
+    "~/App_Plugins/TPSharePreview/backoffice/shareablepreview/sharepreview-settings.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/TPSharePreview/css/main.css"
+  ]
+}
