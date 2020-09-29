@@ -30,14 +30,7 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
         [HttpPost]
         public bool SaveSettings(ShareSettings settings)
         {
-            if (_shareablePreviewSettingsService.UpdateSettings(settings))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return _shareablePreviewSettingsService.UpdateSettings(settings);
         }
     }
 }

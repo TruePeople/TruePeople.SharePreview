@@ -1,10 +1,13 @@
-﻿angular.module("umbraco").run(function ($rootScope, $routeParams, eventsService, localizationService, $sce, $parse, $compile) {
+﻿angular.module("umbraco").run(function ($rootScope, $routeParams, eventsService, localizationService, sharePreviewResource, $compile) {
     var buttonLabel = "Share preview";
     localizationService.localize("shareablepreview_buttonlabel").then(function (value) {
         buttonLabel = value;
     });
 
     $rootScope.$on('$routeUpdate', function (event, next) {
+        if ($routeParams.id === undefined) {
+            return;
+        }
         var culture = next.params.cculture ? next.params.cculture : $routeParams.mculture;
         if (culture !== undefined && culture !== null) {
             setSharePreviewButton($routeParams.id, culture);
@@ -14,20 +17,41 @@
     });
 
     eventsService.on("content.loaded", function (name, args) {
-        console.log(args.content);
-        initializeButtonLoader(args.content.id);
+        if (args.content.id === undefined) {
+            return;
+        }
+        if (args.content.variants.length === 1) {
+            initializeButtonLoader(args.content.id);
 
+        } else {
+            var culture = $routeParams.cculture ? $routeParams.cculture : $routeParams.mculture;
+            initializeButtonLoader(args.content.id, culture);
+        }
     });
 
     eventsService.on("content.saved", function (name, args) {
-        initializeButtonLoader(args.content.id);
+        if (args.content.id === undefined) {
+            return;
+        }
+        if (args.content.variants.length === 1) {
+            initializeButtonLoader(args.content.id);
+
+        } else {
+            var culture = $routeParams.cculture ? $routeParams.cculture : $routeParams.mculture;
+            initializeButtonLoader(args.content.id, culture);
+        }
     });
 
 
     function setSharePreviewButton(nodeId, culture = "") {
-        fetch('/umbraco/backoffice/api/SharePreviewApi/GetShareableLink?nodeId=' + nodeId + '&culture=' + culture).then(function (res) {
-            res.json().then(function (data) {
-                var buttonElement = angular.element("<a ng-controller='TP.SharePreview.Button.Controller' ng-click='openShareLinksOverlay()' id='shareLink' class='btn umb-button__button btn-info' >" + buttonLabel + "</a>");
+        sharePreviewResource.hasShareableLink(nodeId).then(function (res) {
+            sharePreviewResource.getShareableLink(nodeId, culture).then(function (data) {
+                var buttonElement = "";
+                if (culture === "") {
+                    buttonElement = angular.element("<single-share-link enabled='" + res +"' shareUrl='" + data + "' buttonLabel='" + buttonLabel + "' />");
+                } else {
+                    buttonElement = angular.element("<multi-share-link enabled='" + res +"' buttonLabel='" + buttonLabel + "' />");
+                }
                 var linkFN = $compile(buttonElement);
                 var el = linkFN($rootScope);
 
@@ -44,9 +68,9 @@
         });
     }
 
-    function initializeButtonLoader(contentId) {
+    function initializeButtonLoader(contentId, culture = "") {
         setTimeout(function () {
-            setSharePreviewButton(contentId);
+            setSharePreviewButton(contentId, culture);
         }, 10);
     }
 });
