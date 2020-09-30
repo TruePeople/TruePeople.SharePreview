@@ -9,5 +9,6 @@
     <key alias="generaldesc">On this dashboard you can manage some of the settings of the shareable preview module.</key>
     <key alias="mvodescription">Click on the variant you would like to share and copy the link from the browser address bar.</key>
     <key alias="mvotitle">Variants</key>
+    <key alias="mvoextradescription">Only variants that have a pending changes will be shown here.</key>
   </area>
 </language>

@@ -9,5 +9,6 @@
     <key alias="generaldesc">Op dit dashboard kan je de instellingen van de deelbare link module beheren.</key>
     <key alias="mvodescription">Klik op de variant die je wilt delen en kopieër vervolgens de link vanuit je browser adresbalk.</key>
     <key alias="mvotitle">Varianten</key>
+    <key alias="mvoextradescription">Alleen varianten met een geonpubliceerde versie worden hier weergegeven.</key>
   </area>
 </language>

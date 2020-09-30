@@ -57,3 +57,8 @@
 .sharepreview-button {
     color: #1b264f;
 }
+
+.sharepreview-extra-description {
+    color: grey;
+    font-size: 13px;
+}

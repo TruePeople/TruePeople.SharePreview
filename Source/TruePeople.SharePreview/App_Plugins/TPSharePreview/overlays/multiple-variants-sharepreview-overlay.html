@@ -5,6 +5,10 @@
     <div class="umb-list">
         <div class='mb3 sharepreview-overlay-description'>
             <p><localize key="shareablepreview_mvodescription">Click on the variant you would like to share and copy the link from the browser address bar.</localize></p>
+            <p class="sharepreview-extra-description">
+                <i class="icon-info"></i>
+                <localize key="shareablepreview_mvoextradescription">Only variants that have a pending changes will be shown here.</localize>
+            </p>
         </div>
         <a href="{{link.Link}}" target="_blank" class="sharepreview-list-item" ng-repeat="link in model.links">
             <i class="icon-out sharepreview-icon-out"></i>

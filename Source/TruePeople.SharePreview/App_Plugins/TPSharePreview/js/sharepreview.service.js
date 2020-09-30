@@ -29,7 +29,7 @@
             return;
         }
         if (variantsLength === 1) {
-            initializeButtonLoader(args.content.id);
+            initializeButtonLoader(id);
 
         } else {
             var culture = $routeParams.cculture ? $routeParams.cculture : $routeParams.mculture;
