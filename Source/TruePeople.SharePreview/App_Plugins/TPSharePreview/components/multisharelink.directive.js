@@ -16,7 +16,6 @@
                     }
                     overlayService.open(overlay);
                 });
-
             }
         }
 

@@ -15,23 +15,30 @@
 
         function getShareableLinks(id) {
             return umbRequestHelper.resourcePromise(
-                $http.get(sharePreviewBaseUrl + "GetShareableLinks?nodeId=" + id),
-                "Failed getting share links"
-            );
+                $http.get(sharePreviewBaseUrl + "GetShareableLinks", {
+                    params: {
+                        nodeId: id
+                    }
+                }));
         };
 
         function getShareableLink(id, culture) {
             return umbRequestHelper.resourcePromise(
-                $http.get(sharePreviewBaseUrl + "GetShareableLink?nodeId=" + id + "&culture=" + culture),
-                "Failed getting share link"
-            );
+                $http.get(sharePreviewBaseUrl + "GetShareableLink", {
+                    params: {
+                        nodeId: id,
+                        culture: culture
+                    }
+                }));
         };
 
         function hasShareableLink(id) {
             return umbRequestHelper.resourcePromise(
-                $http.get(sharePreviewBaseUrl + "HasShareableLink?nodeId=" + id),
-                "Failed getting status"
-            );
+                $http.get(sharePreviewBaseUrl + "HasShareableLink", {
+                    params: {
+                        nodeId: id
+                    }
+                }));
         }
     }
 

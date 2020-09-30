@@ -7,5 +7,7 @@
     <key alias="notvalidurldesc">Url waar de gebruiker heen wordt gestuurd, wanneer de preview url niet meer valide is.</key>
     <key alias="notvalidurltitle">Niet Valide Url</key>
     <key alias="generaldesc">Op dit dashboard kan je de instellingen van de deelbare link module beheren.</key>
+    <key alias="mvodescription">Klik op de variant die je wilt delen en kopieër vervolgens de link vanuit je browser adresbalk.</key>
+    <key alias="mvotitle">Varianten</key>
   </area>
 </language>

@@ -53,3 +53,7 @@
     text-decoration: none;
     pointer-events: none;
 }
+
+.sharepreview-button {
+    color: #1b264f;
+}

@@ -1,8 +1,10 @@
 ﻿<div ng-controller="TPSharePreview.MultiVariants.Overlay.controller">
-    <h1 class='umb-overlay__title'>Variants</h1>
+    <h1 class='umb-overlay__title'>
+        <localize key="shareablepreview_mvotitle">Variants</localize>
+    </h1>
     <div class="umb-list">
         <div class='mb3 sharepreview-overlay-description'>
-            <p>Choose what variant you would like to share.</p>
+            <p><localize key="shareablepreview_mvodescription">Click on the variant you would like to share and copy the link from the browser address bar.</localize></p>
         </div>
         <a href="{{link.Link}}" target="_blank" class="sharepreview-list-item" ng-repeat="link in model.links">
             <i class="icon-out sharepreview-icon-out"></i>

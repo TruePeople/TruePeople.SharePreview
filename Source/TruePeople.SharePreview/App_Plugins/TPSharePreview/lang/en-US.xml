@@ -7,5 +7,7 @@
     <key alias="notvalidurldesc">Url where the user gets redirected to when the preview url is not valid anymore.</key>
     <key alias="notvalidurltitle">Not Valid Url</key>
     <key alias="generaldesc">On this dashboard you can manage some of the settings of the shareable preview module.</key>
+    <key alias="mvodescription">Click on the variant you would like to share and copy the link from the browser address bar.</key>
+    <key alias="mvotitle">Variants</key>
   </area>
 </language>

@@ -17,31 +17,25 @@
     });
 
     eventsService.on("content.loaded", function (name, args) {
-        if (args.content.id === undefined) {
-            return;
-        }
-        if (args.content.variants.length === 1) {
-            initializeButtonLoader(args.content.id);
-
-        } else {
-            var culture = $routeParams.cculture ? $routeParams.cculture : $routeParams.mculture;
-            initializeButtonLoader(args.content.id, culture);
-        }
+        contentReload(args.content.id, args.content.variants.length);
     });
 
     eventsService.on("content.saved", function (name, args) {
-        if (args.content.id === undefined) {
+        contentReload(args.content.id, args.content.variants.length);
+    });
+
+    function contentReload(id, variantsLength) {
+        if (id === undefined) {
             return;
         }
-        if (args.content.variants.length === 1) {
+        if (variantsLength === 1) {
             initializeButtonLoader(args.content.id);
 
         } else {
             var culture = $routeParams.cculture ? $routeParams.cculture : $routeParams.mculture;
-            initializeButtonLoader(args.content.id, culture);
+            initializeButtonLoader(id, culture);
         }
-    });
-
+    }
 
     function setSharePreviewButton(nodeId, culture = "") {
         sharePreviewResource.hasShareableLink(nodeId).then(function (res) {
