@@ -20,7 +20,7 @@
     <readme><![CDATA[Share previews with people without a login!]]></readme>
   </info>
   <files>
-    <folder path="../src/TruePeople.SharePreview/App_Plugins/TruePeople.SharePreview" orgPath="App_Plugins/TruePeople.SharePreview" /> 
+    <folder path="../src/TruePeople.SharePreview/App_Plugins/TruePeopleSharePreview" orgPath="App_Plugins/TruePeopleSharePreview" /> 
     <file path="../src/TruePeople.SharePreview/bin/Debug/TruePeople.SharePreview.dll" orgPath="bin/TruePeople.SharePreview.dll" />
   </files>
   <Actions />

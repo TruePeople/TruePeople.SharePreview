@@ -11,7 +11,7 @@
             },
             restrict: 'E',
             replace: true,
-            templateUrl: '/App_Plugins/TruePeople.SharePreview/components/single-share-link.html?umb_rnd=' + Umbraco.Sys.ServerVariables.application.cacheBuster
+            templateUrl: '/App_Plugins/TruePeopleSharePreview/components/single-share-link.html?umb_rnd=' + Umbraco.Sys.ServerVariables.application.cacheBuster
         };
 
         return directive;

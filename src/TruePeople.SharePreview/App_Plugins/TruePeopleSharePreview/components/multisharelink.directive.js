@@ -7,7 +7,7 @@
             $scope.openShareLinksOverlay = function () {
                 sharePreviewResource.getShareableLinks($routeParams.id).then(function (res) {
                     var overlay = {
-                        view: "/App_Plugins/TruePeople.SharePreview/overlays/multiple-variants-sharepreview-overlay.html",
+                        view: "/App_Plugins/TruePeopleSharePreview/overlays/multiple-variants-sharepreview-overlay.html",
                         size: "medium",
                         links: res,
                         close: function () {
@@ -26,7 +26,7 @@
             },
             restrict: 'E',
             replace: true,
-            templateUrl: '/App_Plugins/TruePeople.SharePreview/components/multi-share-link.html?umb_rnd=' + Umbraco.Sys.ServerVariables.application.cacheBuster,
+            templateUrl: '/App_Plugins/TruePeopleSharePreview/components/multi-share-link.html?umb_rnd=' + Umbraco.Sys.ServerVariables.application.cacheBuster,
             link: link,
         };
 

@@ -15,7 +15,7 @@ namespace TruePeople.SharePreview.Controllers.TreeControllers
 {
     [UmbracoTreeAuthorize("shareablepreview", Roles = UmbConstants.Security.AdminGroupAlias)]
     [Tree(UmbConstants.Applications.Settings, "shareablepreview", IsSingleNodeTree = true, SortOrder = 30, TreeGroup = UmbConstants.Trees.Groups.Settings)]
-    [PluginController("TPSharePreview")]
+    [PluginController("TruePeopleSharePreview")]
     public class ShareaPreviewTreeController : TreeController
     {
         protected override TreeNode CreateRootNode(FormDataCollection queryStrings)

@@ -17,6 +17,7 @@ using System.Web;
 using Newtonsoft.Json;
 using TruePeople.SharePreview.Models;
 using System.Globalization;
+using System.Security.Cryptography;
 
 namespace TruePeople.SharePreview.Composers.Handlers
 {
@@ -30,30 +31,45 @@ namespace TruePeople.SharePreview.Composers.Handlers
 
             //Decode first layer of the base64 string;
             //Then decode second layer and decrypt it with private key.
-            var decrypted = TPEncryptHelper.DecryptString(requestContext.RouteData.Values["pageId"].ToString(), settings.PrivateKey);
-            var sharePreviewContext = JsonConvert.DeserializeObject<SharePreviewContext>(decrypted);
-
-            if (sharePreviewContext.NodeId == default || sharePreviewContext.NewestVersionId == default)
+            try
             {
-                RedirectToInvalidUrl(settings.NotValidUrl);
-            }
+                var decrypted = TPEncryptHelper.DecryptString(requestContext.RouteData.Values["pageId"].ToString(), settings.PrivateKey);
+                var sharePreviewContext = JsonConvert.DeserializeObject<SharePreviewContext>(decrypted);
 
-            var latestNodeVersion = contentService.GetVersionsSlim(sharePreviewContext.NodeId, 0, 1).FirstOrDefault();
-            if (latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
-            {
-                if (!string.IsNullOrWhiteSpace(sharePreviewContext.Culture))
+                if (sharePreviewContext.NodeId == default || sharePreviewContext.NewestVersionId == default)
                 {
-                    Umbraco.Web.Composing.Current.VariationContextAccessor.VariationContext = new VariationContext(sharePreviewContext.Culture);
+                    RedirectToInvalidUrl(settings.NotValidUrl);
                 }
-                var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
 
-                return page;
+                var latestNodeVersion = contentService.GetVersionsSlim(sharePreviewContext.NodeId, 0, 1).FirstOrDefault();
+                if (latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
+                {
+                    if (!string.IsNullOrWhiteSpace(sharePreviewContext.Culture))
+                    {
+                        Umbraco.Web.Composing.Current.VariationContextAccessor.VariationContext = new VariationContext(sharePreviewContext.Culture);
+                    }
+                    var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
+
+                    return page;
+                }
+
+                RedirectToInvalidUrl(settings.NotValidUrl);
+
+                //When it gets here something went wrong...
+                return null;
             }
-
-            RedirectToInvalidUrl(settings.NotValidUrl);
-
-            //When it gets here something went wrong...
-            return null;
+            catch(CryptographicException ex)
+            {
+                //Probably means someone changed their key and still have a url that was encrypted with the old key.
+                RedirectToInvalidUrl(settings.NotValidUrl);
+                return null;
+            }
+            catch(Exception ex)
+            {
+                Umbraco.Web.Composing.Current.Logger.Error(typeof(TPPreviewShareRouteHandler), ex, "Error occured when rendering shareable preview content.");
+                RedirectToInvalidUrl(settings.NotValidUrl);
+                return null;
+            }
         }
         protected override void PreparePublishedContentRequest(PublishedRequest request)
         {
