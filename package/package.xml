@@ -4,13 +4,13 @@
     <package>
       <name>TruePeople.SharePreview</name>
       <version>1.0.0</version>
-      <iconUrl></iconUrl>
+      <iconUrl>https://www.truepeople.nl/content/img/apple-icon-120x120.png</iconUrl>
       <licence url="https://opensource.org/licenses/MIT">MIT License</licence>
-      <url>https://our.umbraco.com</url>
+      <url>https://www.truepeople.nl/</url>
       <requirements type="strict">
-        <major></major>
-        <minor></minor>
-        <patch></patch>
+        <major>8</major>
+        <minor>2</minor>
+        <patch>0</patch>
       </requirements>
     </package>
     <author>

@@ -259,7 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Plugins\package.manifest" />
+    <None Include="App_Plugins\TruePeopleSharePreview\package.manifest" />
     <Content Include="App_Plugins\TruePeopleSharePreview\lang\nl-NL.xml" />
     <Content Include="App_Plugins\TruePeopleSharePreview\lang\en-US.xml" />
     <Content Include="App_Plugins\TruePeopleSharePreview\overlays\multiple-variants-overlay.controller.js" />

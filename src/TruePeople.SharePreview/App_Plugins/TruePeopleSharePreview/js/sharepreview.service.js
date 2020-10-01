@@ -5,7 +5,7 @@
     });
 
     $rootScope.$on('$routeUpdate', function (event, next) {
-        if ($routeParams.id === undefined) {
+        if ($routeParams.id === undefined || $routeParams.id === -1 || $routeParams.section !== "content") {
             return;
         }
         var culture = next.params.cculture ? next.params.cculture : $routeParams.mculture;
