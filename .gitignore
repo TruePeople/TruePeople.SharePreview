@@ -14,8 +14,8 @@ NuGetBackup/
 **/App_Data/cache/
 **/Umbraco_Client/*
 **/Umbraco/*
-/Source/node_modules
-/Source/Sources
+/src/node_modules
+/src/Sources
 
 # Ignore Media and Umraco Form Data
 **/media/*
@@ -52,6 +52,8 @@ Desktop.ini
 [Rr]elease/
 
 *.DotSettings
-/Source/packages/
-/Source/.vs/
+/src/packages/
+/src/.vs/
 
+*.nupkg
+/package/*.zip

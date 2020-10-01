@@ -1,0 +1,13 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/TruePeople.SharePreview/js/sharepreview.service.js",
+    "~/App_Plugins/TruePeople.SharePreview/js/sharepreview.resource.js",
+    "~/App_Plugins/TruePeople.SharePreview/components/singlesharelink.directive.js",
+    "~/App_Plugins/TruePeople.SharePreview/components/multisharelink.directive.js",
+    "~/App_Plugins/TruePeople.SharePreview/backoffice/shareablepreview/sharepreview-settings.controller.js",
+    "~/App_Plugins/TruePeople.SharePreview/overlays/multiple-variants-overlay.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/TruePeople.SharePreview/css/main.css"
+  ]
+}

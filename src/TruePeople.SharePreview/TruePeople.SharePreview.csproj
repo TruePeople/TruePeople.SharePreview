@@ -246,28 +246,27 @@
     <Compile Include="Models\ShareLink.cs" />
     <Compile Include="Models\ShareSettings.cs" />
     <Compile Include="Services\SharePreviewSettingsService.cs" />
-    <Content Include="App_Plugins\TPSharePreview\backoffice\shareablepreview\settings.html" />
-    <Content Include="App_Plugins\TPSharePreview\backoffice\shareablepreview\sharepreview-settings.controller.js" />
-    <Content Include="App_Plugins\TPSharePreview\components\multisharelink.directive.js" />
-    <Content Include="App_Plugins\TPSharePreview\components\singlesharelink.directive.js" />
-    <Content Include="App_Plugins\TPSharePreview\components\single-share-link.html" />
-    <Content Include="App_Plugins\TPSharePreview\components\multi-share-link.html" />
-    <Content Include="App_Plugins\TPSharePreview\css\main.css" />
-    <Content Include="App_Plugins\TPSharePreview\js\sharepreview.resource.js" />
-    <Content Include="App_Plugins\TPSharePreview\js\sharepreview.service.js" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\backoffice\shareablepreview\settings.html" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\backoffice\shareablepreview\sharepreview-settings.controller.js" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\components\multisharelink.directive.js" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\components\singlesharelink.directive.js" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\components\single-share-link.html" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\components\multi-share-link.html" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\css\main.css" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\js\sharepreview.resource.js" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\js\sharepreview.service.js" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="App_Plugins\package.manifest" />
-    <Content Include="App_Plugins\TPSharePreview\lang\nl-NL.xml" />
-    <Content Include="App_Plugins\TPSharePreview\lang\en-US.xml" />
-    <Content Include="App_Plugins\TPSharePreview\overlays\multiple-variants-overlay.controller.js" />
-    <Content Include="App_Plugins\TPSharePreview\overlays\multiple-variants-sharepreview-overlay.html" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\lang\nl-NL.xml" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\lang\en-US.xml" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\overlays\multiple-variants-overlay.controller.js" />
+    <Content Include="App_Plugins\TruePeople.SharePreview\overlays\multiple-variants-sharepreview-overlay.html" />
     <Content Include="config\sharePreviewSettings.config" />
     <None Include="packages.config" />
     <None Include="Readme.md" />
-    <None Include="TruePeople.SharePreview.nuspec" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<umbPackage>
+  <info>
+    <package>
+      <name>TruePeople.SharePreview</name>
+      <version>1.0.0</version>
+      <iconUrl></iconUrl>
+      <licence url="https://opensource.org/licenses/MIT">MIT License</licence>
+      <url>https://our.umbraco.com</url>
+      <requirements type="strict">
+        <major></major>
+        <minor></minor>
+        <patch></patch>
+      </requirements>
+    </package>
+    <author>
+      <name>True People B.V.</name>
+      <website>https://www.truepeople.nl</website>
+    </author>
+    <readme><![CDATA[Share previews with people without a login!]]></readme>
+  </info>
+  <files>
+    <folder path="../src/TruePeople.SharePreview/App_Plugins/TruePeople.SharePreview" orgPath="App_Plugins/TruePeople.SharePreview" /> 
+    <file path="../src/TruePeople.SharePreview/bin/Debug/TruePeople.SharePreview.dll" orgPath="bin/TruePeople.SharePreview.dll" />
+  </files>
+  <Actions />
+  <control />
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+</umbPackage>
