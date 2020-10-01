@@ -42,7 +42,7 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 }
 
                 var latestNodeVersion = contentService.GetVersionsSlim(sharePreviewContext.NodeId, 0, 1).FirstOrDefault();
-                if (latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
+                if (latestNodeVersion != null && latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
                 {
                     if (!string.IsNullOrWhiteSpace(sharePreviewContext.Culture))
                     {
