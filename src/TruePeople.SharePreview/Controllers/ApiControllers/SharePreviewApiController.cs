@@ -29,8 +29,12 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
         [HttpGet]
         public bool HasShareableLink(int nodeId)
         {
+            if(nodeId == -1)
+            {
+                return false;
+            }
             var content = _contentService.GetById(nodeId);
-            return (content.Edited || content.EditedCultures.Any()) && content.TemplateId != null;
+            return (content.Edited || content.EditedCultures.Any()) && content.TemplateId != null && !content.Trashed;
         }
 
         [HttpGet]
