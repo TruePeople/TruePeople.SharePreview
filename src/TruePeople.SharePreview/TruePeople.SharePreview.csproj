@@ -266,7 +266,6 @@
     <Content Include="App_Plugins\TruePeopleSharePreview\overlays\multiple-variants-sharepreview-overlay.html" />
     <Content Include="config\sharePreviewSettings.config" />
     <None Include="packages.config" />
-    <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
