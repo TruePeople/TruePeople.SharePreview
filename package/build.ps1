@@ -17,6 +17,7 @@ try
 	}
 }
 catch {
-	Write-Host "Error occured";
+	Write-Host "Error occured:";
+	Write-Host $_;
 	$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
