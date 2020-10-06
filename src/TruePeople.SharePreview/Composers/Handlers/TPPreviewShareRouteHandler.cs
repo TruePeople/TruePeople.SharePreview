@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using TruePeople.SharePreview.Models;
 using System.Globalization;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace TruePeople.SharePreview.Composers.Handlers
 {
@@ -50,7 +51,9 @@ namespace TruePeople.SharePreview.Composers.Handlers
                     if (latestNodeVersion.EditedCultures.Any(x => x.Equals(sharePreviewContext.Culture))
                         && latestPublishDate.Ticks <= sharePreviewContext.DateTicks)
                     {
+                        Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(sharePreviewContext.Culture);
                         Umbraco.Web.Composing.Current.VariationContextAccessor.VariationContext = new VariationContext(sharePreviewContext.Culture);
+
                         var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
                         return page;
                     }
@@ -58,6 +61,9 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 else if (latestNodeVersion != null && latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
                 {
                     var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
+
+                    var defaultCulture = Umbraco.Web.Composing.Current.Services.LocalizationService.GetDefaultLanguageIsoCode();
+                    Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(defaultCulture);
                     return page;
                 }
 
