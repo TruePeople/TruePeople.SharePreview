@@ -17,8 +17,7 @@ namespace TruePeople.SharePreview.Services
 
         public ShareSettings GetSettings()
         {
-            var settings = HttpRuntime.Cache.Get(_settingsCacheKey) as ShareSettings;
-            if (settings == null)
+            if (!(HttpRuntime.Cache.Get(_settingsCacheKey) is ShareSettings settings))
             {
                 settings = ReadSettings();
                 HttpRuntime.Cache.Insert(_settingsCacheKey, settings, null, DateTime.Now.AddHours(1), Cache.NoSlidingExpiration);
@@ -54,7 +53,17 @@ namespace TruePeople.SharePreview.Services
                 }
                 else
                 {
-                    return new ShareSettings();
+                    //This probably means that this is the first time they start the application with this package installed.
+                    //So we generate a random private key so it works out of the box.
+                    var randomSettings = new ShareSettings
+                    {
+                        PrivateKey = Guid.NewGuid().ToString(),
+                        NotValidUrl = "/"
+                    };
+
+                    UpdateSettings(randomSettings);
+
+                    return randomSettings;
                 }
             }
             catch (Exception ex)

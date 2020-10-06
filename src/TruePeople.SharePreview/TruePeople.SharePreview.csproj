@@ -254,6 +254,7 @@
     <Content Include="App_Plugins\TruePeopleSharePreview\components\multi-share-link.html" />
     <Content Include="App_Plugins\TruePeopleSharePreview\css\main.css" />
     <Content Include="App_Plugins\TruePeopleSharePreview\js\sharepreview.resource.js" />
+    <Content Include="App_Plugins\TruePeopleSharePreview\js\sharepreview.copy.service.js" />
     <Content Include="App_Plugins\TruePeopleSharePreview\js\sharepreview.service.js" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

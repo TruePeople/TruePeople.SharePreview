@@ -1,7 +1,13 @@
 ﻿(function () {
     'use strict';
 
-    function singleShareLinkDirective() {
+    function singleShareLinkDirective(sharePreviewCopyService) {
+
+        function link($scope) {
+            $scope.copyShareLink = function (link) {
+                sharePreviewCopyService.copyShareLink(link);
+            };
+        }
 
         var directive = {
             scope: {
@@ -11,7 +17,8 @@
             },
             restrict: 'E',
             replace: true,
-            templateUrl: '/App_Plugins/TruePeopleSharePreview/components/single-share-link.html?umb_rnd=' + Umbraco.Sys.ServerVariables.application.cacheBuster
+            templateUrl: '/App_Plugins/TruePeopleSharePreview/components/single-share-link.html?umb_rnd=' + Umbraco.Sys.ServerVariables.application.cacheBuster,
+            link: link
         };
 
         return directive;

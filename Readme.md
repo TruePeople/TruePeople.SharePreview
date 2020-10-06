@@ -17,3 +17,9 @@ but when you open this in a multi lingual environment it will open a popup where
 ## How long will the link be valid for?
 The link generated will remain valid until the version that the link was generated on has been published.
 When someone tries to acces the link then, they will be redirected to the url you configured in the settings.
+
+## How to run this on your local machine?
+Clone this repository to your machine.
+Run the build.ps1 script that is located in the package folder.
+When you run the script you can specify what version you would like to give it and if you want to package it up for umbraco or nuget.
+This will then generate the packages inside the same folder.

@@ -1,6 +1,7 @@
 ﻿{
   "javascript": [
     "~/App_Plugins/TruePeopleSharePreview/js/sharepreview.service.js",
+    "~/App_Plugins/TruePeopleSharePreview/js/sharepreview.copy.service.js",
     "~/App_Plugins/TruePeopleSharePreview/js/sharepreview.resource.js",
     "~/App_Plugins/TruePeopleSharePreview/components/singlesharelink.directive.js",
     "~/App_Plugins/TruePeopleSharePreview/components/multisharelink.directive.js",

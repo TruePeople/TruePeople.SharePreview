@@ -66,7 +66,7 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 //When it gets here something went wrong...
                 return null;
             }
-            catch (CryptographicException ex)
+            catch (CryptographicException)
             {
                 //Probably means someone changed their key and still have a url that was encrypted with the old key.
                 RedirectToInvalidUrl(settings.NotValidUrl);

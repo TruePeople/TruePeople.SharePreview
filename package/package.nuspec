@@ -3,12 +3,12 @@
   <metadata>
     <id>TruePeople.SharePreview</id>
     <version>$version$</version>
-    <title>$title$</title>
+    <title>TruePeople.SharePreview</title>
     <authors>True People B.V.</authors>
     <owners>True People B.V.</owners>
     <projectUrl>https://www.truepeople.nl</projectUrl>
     <icon>images\icon-128.png</icon>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Share previews with people without a login.</description>
     <copyright>Copyright © 2020 True People B.V.</copyright>
     <tags>preview umbraco</tags>

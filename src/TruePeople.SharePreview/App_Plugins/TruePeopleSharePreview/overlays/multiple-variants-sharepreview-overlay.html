@@ -10,11 +10,11 @@
                 <localize key="shareablepreview_mvoextradescription">Only variants that have a pending changes will be shown here.</localize>
             </p>
         </div>
-        <a href="{{link.Link}}" target="_blank" class="sharepreview-list-item" ng-repeat="link in model.links">
-            <i class="icon-out sharepreview-icon-out"></i>
+        <div ng-click="copyShareLink(link.Link)" class="sharepreview-list-item" ng-repeat="link in model.links">
+            <i class="icon-documents sharepreview-icon-out"></i>
             <span class="sharepreview-list-item-title">{{link.CultureName}}</span>
             <span class="sharepreview-list-item-subtitle">{{link.Link}}</span>
-        </a>
+        </div>
     </div>
 </div>
 

@@ -3,7 +3,7 @@
 
     function multiShareLinkDirective(overlayService, sharePreviewResource, $routeParams) {
 
-        function link($scope, $element) {
+        function link($scope) {
             $scope.openShareLinksOverlay = function () {
                 sharePreviewResource.getShareableLinks($routeParams.id).then(function (res) {
                     var overlay = {
