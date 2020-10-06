@@ -72,14 +72,25 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
         {
             var privateEncryptionKey = _sharePreviewSettingsService.GetSettings().PrivateKey;
 
-            var latestNodeVersion = _contentService.GetVersionIds(nodeId, 1).FirstOrDefault();
+            if(privateEncryptionKey == null)
+            {
+                return null;
+            }
+
+            var latestNodeVersion = _contentService.GetVersionsSlim(nodeId, 0, 1).FirstOrDefault();
 
             var objToEncrypt = new SharePreviewContext()
             {
                 NodeId = nodeId,
-                NewestVersionId = latestNodeVersion,
-                Culture = culture
+                NewestVersionId = latestNodeVersion.VersionId,
+                Culture = culture                
             };
+
+            if (!string.IsNullOrWhiteSpace(culture))
+            {
+                latestNodeVersion.CultureInfos.TryGetValue(culture, out var cultureInfo);
+                objToEncrypt.DateTicks = cultureInfo.Date.Ticks;
+            }
 
             var encrypted = TPEncryptHelper.EncryptString(JsonConvert.SerializeObject(objToEncrypt), privateEncryptionKey);
 

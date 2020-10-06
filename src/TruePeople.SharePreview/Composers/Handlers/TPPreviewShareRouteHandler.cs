@@ -42,14 +42,22 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 }
 
                 var latestNodeVersion = contentService.GetVersionsSlim(sharePreviewContext.NodeId, 0, 1).FirstOrDefault();
-                if (latestNodeVersion != null && latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
+
+                if (!string.IsNullOrWhiteSpace(sharePreviewContext.Culture))
                 {
-                    if (!string.IsNullOrWhiteSpace(sharePreviewContext.Culture))
+                    var latestPublishDate = latestNodeVersion.GetPublishDate(sharePreviewContext.Culture).GetValueOrDefault();
+
+                    if (latestNodeVersion.EditedCultures.Any(x => x.Equals(sharePreviewContext.Culture))
+                        && latestPublishDate.Ticks <= sharePreviewContext.DateTicks)
                     {
                         Umbraco.Web.Composing.Current.VariationContextAccessor.VariationContext = new VariationContext(sharePreviewContext.Culture);
+                        var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
+                        return page;
                     }
+                }
+                else if (latestNodeVersion != null && latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
+                {
                     var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
-
                     return page;
                 }
 
@@ -58,13 +66,13 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 //When it gets here something went wrong...
                 return null;
             }
-            catch(CryptographicException ex)
+            catch (CryptographicException ex)
             {
                 //Probably means someone changed their key and still have a url that was encrypted with the old key.
                 RedirectToInvalidUrl(settings.NotValidUrl);
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Umbraco.Web.Composing.Current.Logger.Error(typeof(TPPreviewShareRouteHandler), ex, "Error occured when rendering shareable preview content.");
                 RedirectToInvalidUrl(settings.NotValidUrl);

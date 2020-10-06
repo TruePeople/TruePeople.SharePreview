@@ -44,10 +44,17 @@ namespace TruePeople.SharePreview.Services
         {
             try
             {
-                using (var stream = System.IO.File.OpenRead(_configPath))
+                if (System.IO.File.Exists(_configPath))
                 {
-                    var serializer = new XmlSerializer(typeof(ShareSettings));
-                    return serializer.Deserialize(stream) as ShareSettings;
+                    using (var stream = System.IO.File.OpenRead(_configPath))
+                    {
+                        var serializer = new XmlSerializer(typeof(ShareSettings));
+                        return serializer.Deserialize(stream) as ShareSettings ?? new ShareSettings();
+                    }
+                }
+                else
+                {
+                    return new ShareSettings();
                 }
             }
             catch (Exception ex)

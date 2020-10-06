@@ -40,6 +40,9 @@
     function setSharePreviewButton(nodeId, culture = "") {
         sharePreviewResource.hasShareableLink(nodeId).then(function (res) {
             sharePreviewResource.getShareableLink(nodeId, culture).then(function (data) {
+                if (data == null || data == undefined) {
+                    return;
+                }
                 var buttonElement = "";
                 if (culture === "") {
                     buttonElement = angular.element("<single-share-link enabled='" + res +"' shareUrl='" + data + "' buttonLabel='" + buttonLabel + "' />");

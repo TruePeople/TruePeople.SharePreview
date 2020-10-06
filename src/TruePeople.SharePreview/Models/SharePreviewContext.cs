@@ -13,5 +13,7 @@ namespace TruePeople.SharePreview.Models
         public int NewestVersionId { get; set; }
 
         public string Culture { get; set; }
+
+        public long DateTicks { get; set; }
     }
 }
