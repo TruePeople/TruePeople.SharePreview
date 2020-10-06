@@ -62,6 +62,8 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 {
                     var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
 
+                    //Since we don't use the base.PreparePublishedRequest, the culture isn't being set correctly.
+                    //Set it like umbraco does for previews.
                     var defaultCulture = Umbraco.Web.Composing.Current.Services.LocalizationService.GetDefaultLanguageIsoCode();
                     Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(defaultCulture);
                     return page;
