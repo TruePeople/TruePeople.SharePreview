@@ -3,10 +3,10 @@
   <info>
     <package>
       <name>TruePeople.SharePreview</name>
-      <version>1.0.0</version>
-      <iconUrl>https://www.truepeople.nl/content/img/apple-icon-120x120.png</iconUrl>
+      <version></version>
+      <iconUrl>https://raw.githubusercontent.com/TruePeople/TruePeople.SharePreview/master/assets/icon-128.png</iconUrl>
       <licence url="https://opensource.org/licenses/MIT">MIT License</licence>
-      <url>https://www.truepeople.nl/</url>
+      <url>https://github.com/TruePeople/TruePeople.SharePreview</url>
       <requirements type="strict">
         <major>8</major>
         <minor>2</minor>
@@ -17,7 +17,7 @@
       <name>True People B.V.</name>
       <website>https://www.truepeople.nl</website>
     </author>
-    <readme><![CDATA[Share previews with people without a login!]]></readme>
+    <readme><![CDATA[Share previews without needing to login!]]></readme>
   </info>
   <files>
     <folder path="../src/TruePeople.SharePreview/App_Plugins/TruePeopleSharePreview" orgPath="App_Plugins/TruePeopleSharePreview" /> 

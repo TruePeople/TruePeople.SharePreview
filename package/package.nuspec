@@ -6,7 +6,7 @@
     <title>TruePeople.SharePreview</title>
     <authors>True People B.V.</authors>
     <owners>True People B.V.</owners>
-    <projectUrl>https://www.truepeople.nl</projectUrl>
+    <projectUrl>https://github.com/TruePeople/TruePeople.SharePreview</projectUrl>
     <icon>images\icon-128.png</icon>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Share previews with people without a login.</description>
