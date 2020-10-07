@@ -1,5 +1,5 @@
 ﻿# TruePeople.SharePreview
-Share previews with people that don't have a login to your Umbraco environment! It works for both multi lingual and non multi lingual environments :)
+Share previews with people that don't have a login to your Umbraco environment! It supports multi-cultural and single-culture sites.
 
 ## Installation
 Install the package via Nuget or download it from Our.Umbraco.
