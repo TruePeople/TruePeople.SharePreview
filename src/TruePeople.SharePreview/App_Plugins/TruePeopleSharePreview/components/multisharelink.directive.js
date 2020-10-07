@@ -1,9 +1,11 @@
 ﻿(function () {
     'use strict';
 
-    function multiShareLinkDirective(overlayService, sharePreviewResource, $routeParams) {
+    function multiShareLinkDirective(overlayService, sharePreviewResource, $routeParams, eventsService) {
 
         function link($scope) {
+            $scope.shouldShow = true;
+
             $scope.openShareLinksOverlay = function () {
                 sharePreviewResource.getShareableLinks($routeParams.id).then(function (res) {
                     var overlay = {
@@ -16,7 +18,15 @@
                     }
                     overlayService.open(overlay);
                 });
-            }
+            };
+
+            eventsService.on("app.tabChange", function (name, args) {
+                if (args.alias == "umbContent" || args.alias == "umbInfo") {
+                    $scope.shouldShow = true;
+                } else {
+                    $scope.shouldShow = false;
+                }
+            });
         }
 
         var directive = {

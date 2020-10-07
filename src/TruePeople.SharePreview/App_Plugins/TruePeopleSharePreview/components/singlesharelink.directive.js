@@ -1,12 +1,22 @@
 ﻿(function () {
     'use strict';
 
-    function singleShareLinkDirective(sharePreviewCopyService) {
+    function singleShareLinkDirective(sharePreviewCopyService, eventsService) {
 
         function link($scope) {
+            $scope.shouldShow = true;
+
             $scope.copyShareLink = function (link) {
                 sharePreviewCopyService.copyShareLink(link);
             };
+
+            eventsService.on("app.tabChange", function (name, args) {
+                if (args.alias == "umbContent" || args.alias == "umbInfo") {
+                    $scope.shouldShow = true;
+                } else {
+                    $scope.shouldShow = false;
+                }
+            });
         }
 
         var directive = {
