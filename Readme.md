@@ -35,6 +35,7 @@ This will then generate the packages inside the same folder.
 # Changelog
 
 ## v1.0.0
-	- Initial package release
+
+- Initial package release
 	
 ---
