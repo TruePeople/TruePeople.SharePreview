@@ -1,8 +1,11 @@
-﻿# TruePeople.SharePreview
+![Nuget](https://img.shields.io/nuget/v/TruePeople.SharePreview)
+
+# TruePeople.SharePreview
 Share preview URLs with non-Umbraco users! It supports multi-cultural and single-culture sites.
 
 ## Installation
-Install the package via NuGet or download it from Our Umbraco.
+Install the package via [NuGet](https://www.nuget.org/packages/TruePeople.SharePreview) or download it from [Our Umbraco](https://our.umbraco.com/packages/backoffice-extensions/truepeoplesharepreview/).
+
 
 ## Settings
 In the settings section you will see a new tree node 'Shareable Preview settings', here you can manage the encryption key that will be used to generate the shareable preview URL.
@@ -26,11 +29,11 @@ The handler takes care of setting the right VariationContext in previews ,checki
 ## How to run this on your local machine?
 Clone this repository to your machine.
 Run the build.ps1 script that is located in the package folder.
-When you run the script you can specify what version you would like to give it and if you want to package it up for Umbraco or NuGet.
-This will then generate the packages inside the same folder.
+Specify what version you would like to give the build, and if you want to package it up for Umbraco or NuGet.
+This will generate the packages inside the same folder.
 
 
-** We are working on implementing segment support to this package.**
+** We are working on implementing segment support in this package.**
 
 # Changelog
 
