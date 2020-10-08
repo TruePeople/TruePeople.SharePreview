@@ -66,6 +66,7 @@ namespace TruePeople.SharePreview.Composers.Handlers
                     //Set it like umbraco does for previews.
                     var defaultCulture = Umbraco.Web.Composing.Current.Services.LocalizationService.GetDefaultLanguageIsoCode();
                     Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(defaultCulture);
+
                     return page;
                 }
 
@@ -99,6 +100,9 @@ namespace TruePeople.SharePreview.Composers.Handlers
             // set the special data token to the current route definition
             request.UmbracoContext.HttpContext.Request.RequestContext.RouteData.DataTokens[Umbraco.Core.Constants.Web.UmbracoRouteDefinitionDataToken] = def;
             request.UmbracoContext.HttpContext.Request.RequestContext.RouteData.Values["action"] = request.PublishedContent.GetTemplateAlias();
+
+            // We set it here again, because it gets overwritten in the pipeline.
+            Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(Umbraco.Web.Composing.Current.VariationContextAccessor.VariationContext.Culture);
         }
 
 
