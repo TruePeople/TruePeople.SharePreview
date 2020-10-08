@@ -1,5 +1,5 @@
 ﻿# TruePeople.SharePreview
-Share previews with people that don't have a login to your Umbraco environment! It supports multi-cultural and single-culture sites.
+Share preview URLs with non-Umbraco users! It supports multi-cultural and single-culture sites.
 
 ## Installation
 Install the package via NuGet or download it from Our Umbraco.
@@ -28,3 +28,13 @@ Clone this repository to your machine.
 Run the build.ps1 script that is located in the package folder.
 When you run the script you can specify what version you would like to give it and if you want to package it up for Umbraco or NuGet.
 This will then generate the packages inside the same folder.
+
+
+** We are working on implementing segment support to this package.**
+
+# Changelog
+
+## v1.0.0
+	- Initial package release
+	
+---

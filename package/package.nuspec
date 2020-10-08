@@ -8,8 +8,8 @@
     <owners>True People B.V.</owners>
     <projectUrl>https://github.com/TruePeople/TruePeople.SharePreview</projectUrl>
     <icon>images\icon-128.png</icon>
-    <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Share previews with people without a login.</description>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Share preview URLs with non-Umbraco users!</description>
     <copyright>Copyright © 2020 True People B.V.</copyright>
     <tags>preview umbraco</tags>
 	<license type="expression">MIT</license>
