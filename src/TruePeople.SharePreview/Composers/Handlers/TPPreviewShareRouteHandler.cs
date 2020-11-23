@@ -54,12 +54,15 @@ namespace TruePeople.SharePreview.Composers.Handlers
                         Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(sharePreviewContext.Culture);
                         Umbraco.Web.Composing.Current.VariationContextAccessor.VariationContext = new VariationContext(sharePreviewContext.Culture);
 
+                        EnableForcedPreview();
+
                         var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
                         return page;
                     }
                 }
                 else if (latestNodeVersion != null && latestNodeVersion.VersionId == sharePreviewContext.NewestVersionId && latestNodeVersion.Edited)
                 {
+                    EnableForcedPreview();
                     var page = Umbraco.Web.Composing.Current.UmbracoContext.Content.GetById(true, sharePreviewContext.NodeId);
 
                     //Since we don't use the base.PreparePublishedRequest, the culture isn't being set correctly.
@@ -117,6 +120,17 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 //Redirect to configured page.
                 HttpContext.Current.Response.Redirect(url);
             }
+        }
+
+        /// <summary>
+        /// Sets the publishedsnapshot to previewmode. This is used to also have the latest version of picked content (MNTP, Content Picker, etc.)
+        /// </summary>
+        private void EnableForcedPreview()
+        {
+            Umbraco.Web.Composing.Current.UmbracoContext.PublishedSnapshot.ForcedPreview(true, orig =>
+            {
+                Umbraco.Web.Composing.Current.UmbracoContext.PublishedSnapshot.ForcedPreview(orig);
+            });
         }
     }
 }

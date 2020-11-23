@@ -17,7 +17,7 @@
       <name>True People B.V.</name>
       <website>https://www.truepeople.nl</website>
     </author>
-    <readme><![CDATA[Share previews without needing to login!]]></readme>
+    <readme><![CDATA[Share preview URLs with non-Umbraco users!]]></readme>
   </info>
   <files>
     <folder path="../src/TruePeople.SharePreview/App_Plugins/TruePeopleSharePreview" orgPath="App_Plugins/TruePeopleSharePreview" /> 
