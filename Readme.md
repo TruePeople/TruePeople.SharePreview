@@ -37,6 +37,10 @@ This will generate the packages inside the same folder.
 
 # Changelog
 
+## v1.0.1
+
+- #2 Make sure the request is always in preview mode
+
 ## v1.0.0
 
 - Initial package release
