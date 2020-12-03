@@ -246,6 +246,7 @@
     <Compile Include="Models\SharePreviewContext.cs" />
     <Compile Include="Models\ShareLink.cs" />
     <Compile Include="Models\ShareSettings.cs" />
+    <Compile Include="RequestFilters\RemoveSharePreviewBadge.cs" />
     <Compile Include="Services\SharePreviewSettingsService.cs" />
     <Content Include="App_Plugins\TruePeopleSharePreview\backoffice\shareablepreview\settings.html" />
     <Content Include="App_Plugins\TruePeopleSharePreview\backoffice\shareablepreview\sharepreview-settings.controller.js" />
