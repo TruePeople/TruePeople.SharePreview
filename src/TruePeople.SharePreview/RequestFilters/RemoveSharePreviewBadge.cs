@@ -38,7 +38,7 @@ namespace TruePeople.SharePreview.RequestFilters
         {
             string html = Encoding.UTF8.GetString(buffer);
             var regex = @"(?s)<div[^>]*id=""umbracoPreviewBadge"".*<\/div>";
-            Regex.Replace(html, regex, "");
+            html = Regex.Replace(html, regex, "");
 
             buffer = Encoding.UTF8.GetBytes(html);
             responseStream.Write(buffer, offset, buffer.Length);
