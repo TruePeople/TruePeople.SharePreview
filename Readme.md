@@ -37,6 +37,11 @@ This will generate the packages inside the same folder.
 
 # Changelog
 
+## v1.0.3
+- Hide the message that was implemented in Umbraco 8.10.0
+- Code optimization
+- Bug fix regarding infinite editing
+
 ## v1.0.2
 - #4 Change target framework to 4.7.2
 - #5 Remove the previewbadge from the output html
