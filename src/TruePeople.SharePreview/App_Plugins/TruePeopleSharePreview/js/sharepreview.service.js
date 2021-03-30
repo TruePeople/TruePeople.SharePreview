@@ -12,16 +12,20 @@
         if (culture !== undefined && culture !== null) {
             setSharePreviewButton($routeParams.id, culture);
         } else {
-            setSharePreviewButton($routeParams.id, null);
+            setSharePreviewButton($routeParams.id);
         }
     });
 
     eventsService.on("content.loaded", function (name, args) {
-        contentReload(args.content.id, args.content.variants.length);
+        if (args.content.id === parseInt($routeParams.id)) {
+            contentReload(args.content.id, args.content.variants.length);
+        }
     });
 
     eventsService.on("content.saved", function (name, args) {
-        contentReload(args.content.id, args.content.variants.length);
+        if (args.content.id === parseInt($routeParams.id)) {
+            contentReload(args.content.id, args.content.variants.length);
+        }
     });
 
     function contentReload(id, variantsLength) {

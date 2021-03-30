@@ -24,6 +24,8 @@ namespace TruePeople.SharePreview.Composers.Handlers
 {
     internal class TPPreviewShareRouteHandler : UmbracoVirtualNodeRouteHandler
     {
+        public const string AcceptPreviewMode = "UMB-WEBSITE-PREVIEW-ACCEPT";
+
         protected override IPublishedContent FindContent(RequestContext requestContext, UmbracoContext umbracoContext)
         {
             var contentService = Umbraco.Web.Composing.Current.Services.ContentService;
@@ -74,22 +76,20 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 }
 
                 RedirectToInvalidUrl(settings.NotValidUrl);
-
-                //When it gets here something went wrong...
-                return null;
             }
             catch (CryptographicException)
             {
                 //Probably means someone changed their key and still have a url that was encrypted with the old key.
                 RedirectToInvalidUrl(settings.NotValidUrl);
-                return null;
             }
             catch (Exception ex)
             {
                 Umbraco.Web.Composing.Current.Logger.Error(typeof(TPPreviewShareRouteHandler), ex, "Error occured when rendering shareable preview content.");
                 RedirectToInvalidUrl(settings.NotValidUrl);
-                return null;
             }
+
+            //When it gets here something went wrong...
+            return null;
         }
         protected override void PreparePublishedContentRequest(PublishedRequest request)
         {
@@ -100,12 +100,19 @@ namespace TruePeople.SharePreview.Composers.Handlers
                 PublishedRequest = request
             };
 
-            // set the special data token to the current route definition
+            // Set the special data token to the current route definition
             request.UmbracoContext.HttpContext.Request.RequestContext.RouteData.DataTokens[Umbraco.Core.Constants.Web.UmbracoRouteDefinitionDataToken] = def;
             request.UmbracoContext.HttpContext.Request.RequestContext.RouteData.Values["action"] = request.PublishedContent.GetTemplateAlias();
 
             // We set it here again, because it gets overwritten in the pipeline.
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo(Umbraco.Web.Composing.Current.VariationContextAccessor.VariationContext.Culture);
+
+            // Since Umbraco 8.10 they show a "Exit Preview mode" message if you visit the site in preview mode. We don't want this in this package.
+            // They check if the message should be shown by using a cookie. If this cookie doesn't exists, we set the cookie with the same expiration.
+            if(request.UmbracoContext.HttpContext != null && request.UmbracoContext.HttpContext.Request.Cookies.Get(AcceptPreviewMode) == null)
+            {
+                request.UmbracoContext.HttpContext.Response.Cookies.Set(new HttpCookie(AcceptPreviewMode, "true") { Expires = DateTime.Now.AddMinutes(5)});
+            }
         }
 
 
