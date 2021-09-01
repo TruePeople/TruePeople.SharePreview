@@ -21,7 +21,7 @@ namespace TruePeople.SharePreview.RequestFilters
 
             var originalFilter = filterContext.HttpContext.Response.Filter;
             filterContext.HttpContext.Response.Filter = new PreviewUrlFilter(originalFilter);
-            //base.OnActionExecuting(filterContext);
+            base.OnActionExecuting(filterContext);
         }
     }
 
