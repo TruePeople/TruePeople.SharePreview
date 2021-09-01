@@ -109,7 +109,7 @@ namespace TruePeople.SharePreview.Composers.Handlers
 
             // Since Umbraco 8.10 they show a "Exit Preview mode" message if you visit the site in preview mode. We don't want this in this package.
             // They check if the message should be shown by using a cookie. If this cookie doesn't exists, we set the cookie with the same expiration.
-            if(request.UmbracoContext.HttpContext != null && request.UmbracoContext.HttpContext.Request.Cookies.Get(AcceptPreviewMode) == null)
+            if(request.UmbracoContext.HttpContext != null)
             {
                 request.UmbracoContext.HttpContext.Response.Cookies.Set(new HttpCookie(AcceptPreviewMode, "true") { Expires = DateTime.Now.AddMinutes(5)});
             }
