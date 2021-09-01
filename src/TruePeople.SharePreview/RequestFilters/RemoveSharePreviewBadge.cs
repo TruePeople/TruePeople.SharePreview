@@ -21,12 +21,13 @@ namespace TruePeople.SharePreview.RequestFilters
 
             var originalFilter = filterContext.HttpContext.Response.Filter;
             filterContext.HttpContext.Response.Filter = new PreviewUrlFilter(originalFilter);
-            base.OnActionExecuting(filterContext);
+            //base.OnActionExecuting(filterContext);
         }
     }
 
     public class PreviewUrlFilter : MemoryStream
     {
+        private readonly StringBuilder _data = new StringBuilder();
         private readonly Stream responseStream;
 
         public PreviewUrlFilter(Stream stream)
@@ -36,12 +37,19 @@ namespace TruePeople.SharePreview.RequestFilters
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            string html = Encoding.UTF8.GetString(buffer);
+            _data.Append(Encoding.UTF8.GetString(buffer, offset, count));
+        }
+
+        public override void Close()
+        {
+            var html = _data.ToString();
             var regex = @"(?s)<div[^>]*id=""umbracoPreviewBadge"".*<\/div>";
             html = Regex.Replace(html, regex, "");
 
-            buffer = Encoding.UTF8.GetBytes(html);
-            responseStream.Write(buffer, offset, buffer.Length);
+            var output = Encoding.UTF8.GetBytes(html);
+            responseStream.Write(output, 0, output.Length);
+            responseStream.Flush();
+            _data.Clear();
         }
     }
 }
