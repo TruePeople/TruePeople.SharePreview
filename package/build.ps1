@@ -4,7 +4,7 @@ try
 {
 	if($Pack -eq 'nuget' -or $Pack -eq 'both'){
 
-		nuget pack package.nuspec -Version $Version
+		dotnet pack  ..\src\TruePeople.SharePreview\TruePeople.SharePreview.csproj -o . -p:PackageVersion=$Version -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
 		Write-Host "Succesfully created Nuget package with version $($Version)"
 	}
@@ -19,5 +19,5 @@ try
 catch {
 	Write-Host "Error occured:";
 	Write-Host $_;
-	$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+	 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyUp") > $null
 }

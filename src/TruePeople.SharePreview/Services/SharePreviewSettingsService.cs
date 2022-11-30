@@ -1,36 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Caching;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Xml.Serialization;
 using TruePeople.SharePreview.Models;
-using Umbraco.Core.Composing;
-
+using Umbraco.Cms.Core.Cache;
+using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Extensions;
 
 namespace TruePeople.SharePreview.Services
 {
-    public class SharePreviewSettingsService
+    public class SharePreviewSettingsService : ISharePreviewSettingsService
     {
         private readonly string _settingsCacheKey = "ShareablePreviewSettings";
-        private readonly string _configPath = HttpRuntime.AppDomainAppPath + "\\config\\sharePreviewSettings.config";
+        private readonly IAppPolicyCache _runtimeCache;
+        private readonly ILogger<SharePreviewSettingsService> _logger;
+        private readonly IScopeProvider _scopeProvider;
 
-        public ShareSettings GetSettings()
+        public SharePreviewSettingsService(
+            ILogger<SharePreviewSettingsService> logger,
+            IScopeProvider scopeProvider,
+            AppCaches appCaches)
         {
-            if (!(HttpRuntime.Cache.Get(_settingsCacheKey) is ShareSettings settings))
+            _logger = logger;
+            _scopeProvider = scopeProvider;
+            _runtimeCache = appCaches.RuntimeCache;
+        }
+
+        public ShareablePreviewSettings GetSettings()
+        {
+            var settings = _runtimeCache.GetCacheItem<ShareablePreviewSettings>(_settingsCacheKey);
+
+            if (settings == null)
             {
                 settings = ReadSettings();
-                HttpRuntime.Cache.Insert(_settingsCacheKey, settings, null, DateTime.Now.AddHours(1), Cache.NoSlidingExpiration);
+                _runtimeCache.InsertCacheItem(_settingsCacheKey, () => settings, DateTime.Now.AddHours(1).TimeOfDay);
             }
             return settings;
         }
 
 
-        public bool UpdateSettings(ShareSettings newSettings)
+        public bool UpdateSettings(ShareablePreviewSettings newSettings)
         {
             if (SetSettings(newSettings))
             {
-                HttpRuntime.Cache.Insert(_settingsCacheKey, newSettings, null, DateTime.Now.AddHours(1), Cache.NoSlidingExpiration);
+                _runtimeCache.InsertCacheItem(_settingsCacheKey, () => newSettings, DateTime.Now.AddHours(1).TimeOfDay);
                 return true;
             }
             else
@@ -39,54 +51,33 @@ namespace TruePeople.SharePreview.Services
             }
         }
 
-        private ShareSettings ReadSettings()
+        private ShareablePreviewSettings ReadSettings()
         {
             try
             {
-                if (System.IO.File.Exists(_configPath))
-                {
-                    using (var stream = System.IO.File.OpenRead(_configPath))
-                    {
-                        var serializer = new XmlSerializer(typeof(ShareSettings));
-                        return serializer.Deserialize(stream) as ShareSettings ?? new ShareSettings();
-                    }
-                }
-                else
-                {
-                    //This probably means that this is the first time they start the application with this package installed.
-                    //So we generate a random private key so it works out of the box.
-                    var randomSettings = new ShareSettings
-                    {
-                        PrivateKey = Guid.NewGuid().ToString(),
-                        NotValidUrl = "/"
-                    };
-
-                    UpdateSettings(randomSettings);
-
-                    return randomSettings;
-                }
+                using var scope = _scopeProvider.CreateScope();
+                var settings = scope.Database.First<ShareablePreviewSettings>("SELECT * FROM ShareablePreviewSettings");
+                scope.Complete();
+                return settings;
             }
             catch (Exception ex)
             {
-                Current.Logger.Error(typeof(SharePreviewSettingsService), ex, "Error occured whilst reading out the settings.");
+                _logger.LogError(ex, "Error occured whilst reading out the settings.");
                 return null;
             }
         }
 
-        private bool SetSettings(ShareSettings newSettings)
+        private bool SetSettings(ShareablePreviewSettings newSettings)
         {
             try
             {
-                using (var writer = new System.IO.StreamWriter(_configPath))
-                {
-                    var serializer = new XmlSerializer(typeof(ShareSettings));
-                    serializer.Serialize(writer, newSettings);
-                }
-                return true;
+                using var scope = _scopeProvider.CreateScope();
+                scope.Complete();
+                return scope.Database.Update(newSettings, newSettings.Id) == 1;
             }
             catch (Exception ex)
             {
-                Current.Logger.Error(typeof(SharePreviewSettingsService), ex, "Error occured whilst saving the settings.");
+                _logger.LogError(ex, "Error occured whilst saving the settings.");
                 return false;
             }
         }

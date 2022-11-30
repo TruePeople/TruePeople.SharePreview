@@ -6,13 +6,11 @@
         $http.get("/umbraco/backoffice/api/ShareablePreviewSettingsApi/GetSettings").then(function (res) {
             $scope.settings.privateKey = res.data.PrivateKey;
             $scope.settings.notValidUrl = res.data.NotValidUrl;
-            $scope.settings.id = res.data.Id;
         });
 
         $scope.saveSettings = function () {
             $scope.submitButtonState = "busy";
             var data = {
-                id: $scope.settings.id,
                 privateKey: $scope.settings.privateKey,
                 notValidUrl: $scope.settings.notValidUrl
             };

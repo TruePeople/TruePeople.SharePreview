@@ -1,35 +1,39 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
 using TruePeople.SharePreview.Helpers;
 using TruePeople.SharePreview.Models;
 using TruePeople.SharePreview.Services;
-using Umbraco.Core.Services;
-using Umbraco.Web.Composing;
-using Umbraco.Web.WebApi;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Web.BackOffice.Controllers;
 
 namespace TruePeople.SharePreview.Controllers.ApiControllers
 {
     public class SharePreviewApiController : UmbracoAuthorizedApiController
     {
         private readonly IContentService _contentService;
-        private readonly SharePreviewSettingsService _sharePreviewSettingsService;
+        private readonly ISharePreviewSettingsService _sharePreviewSettingsService;
+        private readonly ILogger<SharePreviewApiController> _logger;
 
-        public SharePreviewApiController(IContentService contentService, SharePreviewSettingsService sharePreviewSettingsService)
+        public SharePreviewApiController(
+            IContentService contentService,
+            ISharePreviewSettingsService sharePreviewSettingsService,
+            ILogger<SharePreviewApiController> logger)
         {
             _contentService = contentService;
             _sharePreviewSettingsService = sharePreviewSettingsService;
+            _logger = logger;
         }
 
         [HttpGet]
         public bool HasShareableLink(int nodeId)
         {
-            if(nodeId == -1)
+            if (nodeId == -1)
             {
                 return false;
             }
@@ -46,7 +50,7 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
             }
             catch (Exception ex)
             {
-                Current.Logger.Error(typeof(SharePreviewApiController), ex, "Error occured whilst trying to create a shareable link");
+                _logger.LogError(ex, "Error occured whilst trying to create a shareable link");
                 return null;
             }
         }
@@ -72,7 +76,7 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
         {
             var privateEncryptionKey = _sharePreviewSettingsService.GetSettings().PrivateKey;
 
-            if(privateEncryptionKey == null)
+            if (privateEncryptionKey == null)
             {
                 return null;
             }
@@ -83,7 +87,7 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
             {
                 NodeId = nodeId,
                 NewestVersionId = latestNodeVersion.VersionId,
-                Culture = culture                
+                Culture = culture
             };
 
             if (!string.IsNullOrWhiteSpace(culture))
@@ -94,7 +98,7 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
 
             var encrypted = TPEncryptHelper.EncryptString(JsonConvert.SerializeObject(objToEncrypt), privateEncryptionKey);
 
-            return string.Format("/umbraco/sharepreview/index/{0}", encrypted);
+            return string.Format("/umbraco/sharepreview/{0}", encrypted);
         }
     }
 }

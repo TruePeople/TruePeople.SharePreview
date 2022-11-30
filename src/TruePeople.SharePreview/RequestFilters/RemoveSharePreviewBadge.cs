@@ -1,14 +1,10 @@
-﻿using HtmlAgilityPack;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
 
 namespace TruePeople.SharePreview.RequestFilters
 {
@@ -16,11 +12,11 @@ namespace TruePeople.SharePreview.RequestFilters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.IsChildAction || !filterContext.HttpContext.Request.Url.AbsolutePath.Contains("umbraco/sharepreview/index/"))
+            if (filterContext.IsChildAction || !filterContext.HttpContext.Request.GetDisplayUrl().Contains("umbraco/sharepreview/index/"))
                 return;
 
             var originalFilter = filterContext.HttpContext.Response.Filter;
-            filterContext.HttpContext.Response.Filter = new PreviewUrlFilter(originalFilter);
+            filterContext.HttpContext.Response.Filt.Filter = new PreviewUrlFilter(originalFilter);
             base.OnActionExecuting(filterContext);
         }
     }

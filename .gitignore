@@ -56,4 +56,5 @@ Desktop.ini
 /src/.vs/
 
 *.nupkg
+*.snupkg
 /package/*.zip

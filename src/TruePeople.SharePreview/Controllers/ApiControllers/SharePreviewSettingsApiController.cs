@@ -1,34 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
-using TruePeople.SharePreview.Helpers;
+﻿using Microsoft.AspNetCore.Mvc;
 using TruePeople.SharePreview.Models;
 using TruePeople.SharePreview.Services;
-using Umbraco.Core.Services;
-using Umbraco.Web.WebApi;
+using Umbraco.Cms.Web.BackOffice.Controllers;
 
 namespace TruePeople.SharePreview.Controllers.ApiControllers
 {
     public class ShareablePreviewSettingsApiController : UmbracoAuthorizedApiController
     {
-        private readonly SharePreviewSettingsService _shareablePreviewSettingsService;
+        private readonly ISharePreviewSettingsService _shareablePreviewSettingsService;
 
-        public ShareablePreviewSettingsApiController(SharePreviewSettingsService shareablePreviewSettingsService)
+        public ShareablePreviewSettingsApiController(ISharePreviewSettingsService shareablePreviewSettingsService)
         {
             _shareablePreviewSettingsService = shareablePreviewSettingsService;
         }
 
         [HttpGet]
-        public ShareSettings GetSettings()
+        public ShareablePreviewSettings GetSettings()
         {
             return _shareablePreviewSettingsService.GetSettings();
         }
 
         [HttpPost]
-        public bool SaveSettings(ShareSettings settings)
+        public bool SaveSettings(ShareablePreviewSettings settings)
         {
             return _shareablePreviewSettingsService.UpdateSettings(settings);
         }

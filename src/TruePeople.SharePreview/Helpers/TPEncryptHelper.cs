@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.WebUtilities;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using Umbraco.Core;
 
 namespace TruePeople.SharePreview.Helpers
 {
@@ -12,31 +8,33 @@ namespace TruePeople.SharePreview.Helpers
     {
         public static string DecryptString(string rawData, string privateKey)
         {
-            byte[] data = System.Web.HttpServerUtility.UrlTokenDecode(rawData);
-            using (MD5CryptoServiceProvider mD5 = new MD5CryptoServiceProvider())
-            {
-                byte[] keys = mD5.ComputeHash(UTF8Encoding.UTF8.GetBytes(privateKey));
-                using (TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
-                {
-                    ICryptoTransform transform = tripleDES.CreateDecryptor();
-                    byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
-                    return UTF8Encoding.UTF8.GetString(result);
-                }
-            }
+            byte[] data = WebEncoders.Base64UrlDecode(rawData);
+            var mD5 = MD5.Create();
+            byte[] keys = mD5.ComputeHash(Encoding.UTF8.GetBytes(privateKey));
+            var tripleDES = GetTripleDES(keys);
+            ICryptoTransform transform = tripleDES.CreateDecryptor();
+            byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
+            return Encoding.UTF8.GetString(result);
         }
+
         public static string EncryptString(string rawData, string privateKey)
         {
-            byte[] data = UTF8Encoding.UTF8.GetBytes(rawData);
-            using (MD5CryptoServiceProvider mD5 = new MD5CryptoServiceProvider())
-            {
-                byte[] keys = mD5.ComputeHash(UTF8Encoding.UTF8.GetBytes(privateKey));
-                using (TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
-                {
-                    ICryptoTransform transform = tripleDES.CreateEncryptor();
-                    byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
-                    return System.Web.HttpServerUtility.UrlTokenEncode(result);
-                }
-            }
+            byte[] data = Encoding.UTF8.GetBytes(rawData);
+            var mD5 = MD5.Create();
+            byte[] keys = mD5.ComputeHash(Encoding.UTF8.GetBytes(privateKey));
+            var tripleDES = GetTripleDES(keys);
+            ICryptoTransform transform = tripleDES.CreateEncryptor();
+            byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
+            return WebEncoders.Base64UrlEncode(result);
+        }
+
+        private static TripleDES GetTripleDES(byte[] keys)
+        {
+            var tripleDES = TripleDES.Create();
+            tripleDES.Key = keys;
+            tripleDES.Mode = CipherMode.ECB;
+            tripleDES.Padding = PaddingMode.PKCS7;
+            return tripleDES;
         }
     }
 }

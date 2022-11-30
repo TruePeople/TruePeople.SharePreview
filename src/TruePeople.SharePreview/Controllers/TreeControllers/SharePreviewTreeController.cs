@@ -1,44 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http.ModelBinding;
-using Umbraco.Web.Models.Trees;
-using Umbraco.Web.Mvc;
-using Umbraco.Web.Trees;
-using Umbraco.Web.WebApi.Filters;
-using UmbConstants = Umbraco.Core.Constants;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Events;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Core.Trees;
+using Umbraco.Cms.Web.BackOffice.Trees;
+using Umbraco.Cms.Web.Common.Attributes;
+using Umbraco.Cms.Web.Common.ModelBinders;
+using UmbConstants = Umbraco.Cms.Core.Constants;
 
 namespace TruePeople.SharePreview.Controllers.TreeControllers
 {
-    [UmbracoTreeAuthorize("shareablepreview", Roles = UmbConstants.Security.AdminGroupAlias)]
-    [Tree(UmbConstants.Applications.Settings, "shareablepreview", IsSingleNodeTree = true, SortOrder = 30, TreeGroup = UmbConstants.Trees.Groups.Settings)]
     [PluginController("TruePeopleSharePreview")]
+    [Tree(
+        UmbConstants.Applications.Settings,
+        "shareablepreview",
+        IsSingleNodeTree = true,
+        TreeGroup = UmbConstants.Trees.Groups.ThirdParty,
+        TreeUse = TreeUse.Main)]
     public class ShareaPreviewTreeController : TreeController
     {
-        protected override TreeNode CreateRootNode(FormDataCollection queryStrings)
+        public ShareaPreviewTreeController(
+            ILocalizedTextService localizedTextService,
+            UmbracoApiControllerTypeCollection umbracoApiControllerTypeCollection,
+            IEventAggregator eventAggregator)
+            : base(localizedTextService, umbracoApiControllerTypeCollection, eventAggregator)
+        {
+        }
+
+        protected override ActionResult<TreeNode> CreateRootNode(FormCollection queryStrings)
         {
             var root = base.CreateRootNode(queryStrings);
 
-            root.Icon = "icon-link";
-            root.HasChildren = false;
-            root.MenuUrl = null;
-            root.Name = "Shareable Preview Settings";
-            root.RoutePath = "settings/shareablepreview/settings";
+            root.Value.Icon = "icon-link";
+            root.Value.HasChildren = false;
+            root.Value.MenuUrl = null;
+            root.Value.Name = "Shareable Preview Settings";
+            root.Value.RoutePath = "settings/shareablepreview/settings";
 
             return root;
         }
 
-        protected override MenuItemCollection GetMenuForNode(string id, [ModelBinder(typeof(HttpQueryStringModelBinder))] FormDataCollection queryStrings)
+        protected override ActionResult<MenuItemCollection> GetMenuForNode(string id, [ModelBinder(typeof(HttpQueryStringModelBinder))] FormCollection queryStrings)
         {
-            return new MenuItemCollection();
+            throw new NotImplementedException();
         }
 
-        protected override TreeNodeCollection GetTreeNodes(string id, [ModelBinder(typeof(HttpQueryStringModelBinder))] FormDataCollection queryStrings)
+        protected override ActionResult<TreeNodeCollection> GetTreeNodes(string id, [ModelBinder(typeof(HttpQueryStringModelBinder))] FormCollection queryStrings)
         {
-            return new TreeNodeCollection();
+            throw new NotImplementedException();
         }
     }
 }
