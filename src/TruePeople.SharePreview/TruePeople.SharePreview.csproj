@@ -10,7 +10,7 @@
 		<Version>2.0.1</Version>
 		<Authors>True People B.V.</Authors>
 		<Description>Share preview URLs with non-Umbraco users!</Description>
-		<PackageTags>umbraco preview 10</PackageTags>
+		<PackageTags>umbraco-marketplace umbraco preview 10</PackageTags>
 		<PackageProjectUrl>https://github.com/TruePeople/TruePeople.SharePreview</PackageProjectUrl>
 		<AssemblyName>TruePeople.SharePreview</AssemblyName>
 		<RootNamespace>TruePeople.SharePreview</RootNamespace>
