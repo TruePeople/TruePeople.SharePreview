@@ -1,4 +1,5 @@
 ![Nuget](https://img.shields.io/nuget/v/TruePeople.SharePreview)
+[![Downloads](https://img.shields.io/nuget/dt/TruePeople.SharePreview)](https://www.nuget.org/packages/TruePeople.SharePreview/)
 
 # TruePeople.SharePreview
 Share preview URLs with non-Umbraco users! It supports multi-cultural and single-culture sites.
@@ -36,6 +37,14 @@ This will generate the packages inside the same folder.
 ** We are working on implementing segment support in this package.**
 
 # Changelog
+
+## v2.0.0
+- Umbraco 10 support
+- Fix issue with serialization in API for backoffice
+
+## v1.0.5
+- Fix issue with output filter not working correctly
+- Remove cookie check for preview popup
 
 ## v1.0.3
 - Hide the message that was implemented in Umbraco 8.10.0
