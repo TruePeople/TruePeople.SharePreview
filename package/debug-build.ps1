@@ -4,7 +4,7 @@ try
 {
 	if($Pack -eq 'nuget' -or $Pack -eq 'both'){
 
-		dotnet pack  ..\src\TruePeople.SharePreview\TruePeople.SharePreview.csproj -o . -p:PackageVersion=$Version -c Release
+		dotnet pack  ..\src\TruePeople.SharePreview\TruePeople.SharePreview.csproj -o . -p:PackageVersion=$Version -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
 		Write-Host "Succesfully created Nuget package with version $($Version)"
 	}

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace TruePeople.SharePreview.Models
 {
@@ -14,8 +10,10 @@ namespace TruePeople.SharePreview.Models
             Link = link;
         }
 
+        [JsonProperty("cultureName")]
         public string CultureName { get; set; }
 
+        [JsonProperty("link")]
         public string Link { get; set; }
     }
 }

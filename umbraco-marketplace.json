@@ -1,0 +1,27 @@
+{
+    "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+    "Title": "Share preview",
+    "AlternatePackageNames": [
+        "TruePeople.SharePreview"
+    ],
+    "Category": "Editor Tools",
+    "PackageType": "Package",
+    "Tags": [
+        "share preview",
+        "preview",
+        "editor"
+    ],
+    "LicenseTypes": ["Free"],
+    "AuthorDetails": {
+        "Url": "https://www.truepeople.nl/",
+        "ImageUrl": "https://avatars.githubusercontent.com/u/72127834",
+        "Description": "Creating digital impact",
+        "Contributors": [
+            {
+                "Name": "Joep van 't Land",
+                "Url": "https://github.com/joepvtl"
+            }
+        ]
+    },
+    "IssueTrackerUrl": "https://github.com/TruePeople/TruePeople.SharePreview/issues"
+}

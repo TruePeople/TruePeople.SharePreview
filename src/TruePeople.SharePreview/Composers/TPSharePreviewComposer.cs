@@ -1,36 +1,39 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Web.Routing;
-using TruePeople.SharePreview.Composers.Handlers;
-using TruePeople.SharePreview.Helpers;
-using TruePeople.SharePreview.Models;
-using TruePeople.SharePreview.RequestFilters;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using TruePeople.SharePreview.Controllers.FrontendControllers;
+using TruePeople.SharePreview.Middlewares;
 using TruePeople.SharePreview.Services;
-using Umbraco.Core.Composing;
-using Umbraco.Web;
-using Umbraco.Web.Routing;
+using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Web.Common.ApplicationBuilder;
 
 namespace TruePeople.SharePreview.Composers
 {
-    internal class TPSharePreviewComposer : IUserComposer
+    internal class TPSharePreviewComposer : IComposer
     {
-        public void Compose(Composition composition)
+        public void Compose(IUmbracoBuilder builder)
         {
-            GlobalFilters.Filters.Add(new RemoveSharePreviewBadge());
+            builder.Services.Configure<UmbracoPipelineOptions>(options =>
+            {
+                options.AddFilter(new UmbracoPipelineFilter(nameof(SharePreviewController))
+                {
+                    Endpoints = app => app.UseEndpoints(endpoints =>
+                    {
+                        endpoints.MapControllerRoute(
+                            "TPSharePreview",
+                            "umbraco/sharepreview/{pageId}",
+                            new { Controller = "SharePreview", Action = "Index" });
 
-            RouteTable.Routes.MapUmbracoRoute(
-            name: "TPSharePreview",
-            url: "umbraco/sharepreview/{action}/{pageId}",
-            defaults: new { controller = "Default" },
-            new TPPreviewShareRouteHandler()
-            );
+                       
+                    }),
+                    PrePipeline = app =>
+                    {
+                        app.UseMiddleware<RemovePreviewBadgeMiddleware>();
+                    }
+                });
+            });
 
-            composition.Register(typeof(SharePreviewSettingsService));
+            builder.Services.AddSingleton<ISharePreviewSettingsService, SharePreviewSettingsService>();
         }
     }
 }

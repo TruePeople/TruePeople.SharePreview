@@ -43,6 +43,10 @@
     cursor: pointer;
 }
 
+.sharepreview-list-item-title {
+    width: 100%;
+}
+
 .sharepreview-overlay-description {
     margin-bottom: 35px;
 }
