@@ -22,15 +22,5 @@
             }
         ]
     },
-    "IssueTrackerUrl": "https://github.com/TruePeople/TruePeople.SharePreview/issues",
-    "VersionSpecificPackageIds": [
-        {
-            "UmbracoMajorVersion": 8,
-            "PackageId": "TruePeople.SharePreview"
-        },
-        {
-            "UmbracoMajorVersion": 10,
-            "PackageId": "TruePeople.SharePreview"
-        }
-    ]
+    "IssueTrackerUrl": "https://github.com/TruePeople/TruePeople.SharePreview/issues"
 }
