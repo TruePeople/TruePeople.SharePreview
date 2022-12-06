@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Xml.Serialization;
 using TruePeople.SharePreview.Models;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Infrastructure.Scoping;
@@ -8,7 +7,7 @@ using Umbraco.Extensions;
 
 namespace TruePeople.SharePreview.Services
 {
-    public class SharePreviewSettingsService : ISharePreviewSettingsService
+    internal class SharePreviewSettingsService : ISharePreviewSettingsService
     {
         private readonly string _settingsCacheKey = "ShareablePreviewSettings";
         private readonly IAppPolicyCache _runtimeCache;

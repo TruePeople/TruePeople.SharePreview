@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Extensions;
 using Umbraco.Cms.Core.Routing;
-using Org.BouncyCastle.Ocsp;
 
 namespace TruePeople.SharePreview.Controllers.FrontendControllers
 {
@@ -31,7 +30,6 @@ namespace TruePeople.SharePreview.Controllers.FrontendControllers
         private readonly IVariationContextAccessor _variationContextAccessor;
         private readonly IUmbracoContextAccessor _umbracoContextAccessor;
         private readonly ILocalizationService _localizationService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<SharePreviewController> _logger;
 
         public SharePreviewController(
@@ -40,7 +38,6 @@ namespace TruePeople.SharePreview.Controllers.FrontendControllers
             IVariationContextAccessor variationContextAccessor,
             IUmbracoContextAccessor umbracoContextAccessor,
             ILocalizationService localizationService,
-            IHttpContextAccessor httpContextAccessor,
             ILogger<SharePreviewController> logger,
             ICompositeViewEngine viewEngine) : base(logger, viewEngine)
         {
@@ -49,18 +46,14 @@ namespace TruePeople.SharePreview.Controllers.FrontendControllers
             _variationContextAccessor = variationContextAccessor;
             _umbracoContextAccessor = umbracoContextAccessor;
             _localizationService = localizationService;
-            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            // CurrentPage (IPublishedContent) will be the content returned
-            // from the FindContent method.
-
-            // return the view with the IPublishedContent
-            return View(CurrentPage.GetTemplateAlias(), CurrentPage);
+            var viewResult = View(CurrentPage.GetTemplateAlias(), CurrentPage);
+            return viewResult;
         }
 
         public IPublishedContent FindContent(ActionExecutingContext actionExecutingContext)
