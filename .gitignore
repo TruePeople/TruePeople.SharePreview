@@ -58,3 +58,5 @@ Desktop.ini
 *.nupkg
 *.snupkg
 /package/*.zip
+/package/__umbpack_tmp/*
+/package/__umbpack_build/*
