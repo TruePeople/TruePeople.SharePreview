@@ -1,4 +1,6 @@
-﻿namespace TruePeople.SharePreview.Models
+﻿using Newtonsoft.Json;
+
+namespace TruePeople.SharePreview.Models
 {
     public class ShareLink
     {
@@ -8,8 +10,10 @@
             Link = link;
         }
 
+        [JsonProperty("cultureName")]
         public string CultureName { get; set; }
 
+        [JsonProperty("link")]
         public string Link { get; set; }
     }
 }

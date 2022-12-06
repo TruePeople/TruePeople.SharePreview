@@ -91,7 +91,9 @@ namespace TruePeople.SharePreview.Controllers.ApiControllers
 
             if (!string.IsNullOrWhiteSpace(culture))
             {
-                latestNodeVersion.CultureInfos.TryGetValue(culture, out var cultureInfo);
+                if (!latestNodeVersion.CultureInfos.TryGetValue(culture, out var cultureInfo))
+                    return string.Empty;
+
                 objToEncrypt.DateTicks = cultureInfo.Date.Ticks;
             }
 

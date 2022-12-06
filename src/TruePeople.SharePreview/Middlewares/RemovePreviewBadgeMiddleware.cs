@@ -33,18 +33,14 @@ namespace TruePeople.SharePreview.Middlewares
             // Reset to 0
             newBody.Position = 0;
 
-            // Read all content
+            // Read all content and replace
             var content = await new StreamReader(newBody).ReadToEndAsync();
             var regex = @"(?s)<div[^>]*id=""umbracoPreviewBadge"".*<\/div>";
+            content = Regex.Replace(content, regex, "");
+            var updatedStream = GenerateStreamFromString(content);
+            await updatedStream.CopyToAsync(originalBody);
 
-            // Check if the badge should be replaced, if so do it and update the stream.
-            if (Regex.IsMatch(content, regex))
-            {
-                content = Regex.Replace(content, regex, "");
-                var updatedStream = GenerateStreamFromString(content);
-                await updatedStream.CopyToAsync(originalBody);
-                context.Response.Body = originalBody;
-            }
+            context.Response.Body = originalBody;
         }
 
         public static Stream GenerateStreamFromString(string s)

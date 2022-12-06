@@ -11,13 +11,13 @@
             </p>
         </div>
         <div ng-click="copyShareLink(link.link)" class="sharepreview-list-item" ng-repeat="link in model.links">
-            <i class="icon-documents sharepreview-icon-out"></i>
-            <span class="sharepreview-list-item-title">{{link.cultureName}}</span>
-            <span class="sharepreview-list-item-subtitle">{{link.link}}</span>
+            <div class="sharepreview-list-item-title">
+                <i class="icon-documents sharepreview-icon-out"></i>
+                <span class="sharepreview-list-item-title">{{link.cultureName}}</span>
+            </div>
+            <div>
+                <span class="sharepreview-list-item-subtitle">{{link.link}}</span>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-
