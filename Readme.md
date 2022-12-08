@@ -1,7 +1,7 @@
 ![Nuget](https://img.shields.io/nuget/v/TruePeople.SharePreview)
 [![Downloads](https://img.shields.io/nuget/dt/TruePeople.SharePreview)](https://www.nuget.org/packages/TruePeople.SharePreview/)
 
-# TruePeople.SharePreview
+<h1> TruePeople.SharePreview </h1>
 Share preview URLs with non-Umbraco users! It supports multi-cultural and single-culture sites.
 
 ## Installation
