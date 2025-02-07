@@ -79,7 +79,6 @@ namespace TruePeople.SharePreview.Controllers.FrontendControllers
                 return null;
 
             var settings = _sharePreviewSettings.GetSettings();
-            
             //Decode first layer of the base64 string;
             //Then decode second layer and decrypt it with private key.
             try
