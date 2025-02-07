@@ -169,30 +169,6 @@ namespace TruePeople.SharePreview.Controllers.FrontendControllers
             return DomainUtilities.SelectDomain(domains, contentUrl, culture, domainCache.DefaultCulture);
         }
 
-        private DomainAndUri? GetDomainByCulture(IEnumerable<DomainAndUri> domains, string culture, string defaultCulture)
-        {
-
-            if (culture is not null)
-            {
-                var domain = domains.FirstOrDefault(x => x.Culture.InvariantEquals(culture));
-                if (domain is not null)
-                {
-                    return domain;
-                }
-            }
-
-            if (defaultCulture is not null)
-            {
-                var domain = domains.FirstOrDefault(x => x.Culture.InvariantEquals(defaultCulture));
-                if (domain is not null)
-                {
-                    return domain;
-                }
-            }
-
-            return null;
-        }
-
         private void PrepareRequest(ActionExecutingContext req)
         {
             // Since Umbraco 8.10 they show a "Exit Preview mode" message if you visit the site in preview mode. We don't want this in this package.
